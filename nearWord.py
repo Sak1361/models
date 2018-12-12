@@ -30,5 +30,5 @@ def nearWord(modelPath):
 
 
 if __name__ == '__main__':
-    #makeModel("/home/sak1361/repository/NLP/wakati/statements/abe_diet_wakati.csv","model_abe.model")
+    #makeModel("/home/sak1361/repository/NLP/wakati/statements/all_ABE_diet2018_wakati.csv","model_abe_ALL.model")
     nearWord("model_abe.model")
