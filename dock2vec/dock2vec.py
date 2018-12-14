@@ -5,7 +5,6 @@ import logging
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--input', '-i', type=str)
-#parser.add_argument('input2', type=str)
 parser.add_argument('--save_model', '-s', default='model', type=str)
 args = parser.parse_args()
 
