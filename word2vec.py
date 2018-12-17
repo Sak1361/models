@@ -20,7 +20,7 @@ def makeModel(wakatiPath,modelPath):
         これでもうまくいかない：エポック数増やす
     """
     # size=次元数、min_count=単語の最小出現数、window=上記に説明、iter=学習繰り返し、cbow_mean=ベクトルの和(0)か平均か(1)
-    model = word2vec.Word2Vec(sentences, size=100,alpha=0.01 , min_count=5, window=15,cbow_mean=1,iter=50)
+    model = word2vec.Word2Vec(sentences, size=200,alpha=0.01 , min_count=5, window=15,cbow_mean=1,workers=4,iter=10,compute_loss=True)
     model.save(modelPath)
 
 def nearWord(modelPath,search_word):
