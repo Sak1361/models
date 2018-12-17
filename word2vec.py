@@ -20,13 +20,13 @@ def makeModel(wakatiPath,modelPath):
         これでもうまくいかない：エポック数増やす
     """
     # size=次元数、min_count=単語の最小出現数、window=上記に説明、iter=学習繰り返し、cbow_mean=ベクトルの和(0)か平均か(1)
-    model = word2vec.Word2Vec(sentences, size=600,alpha=0.01 , min_count=5, window=15,cbow_mean=1,iter=10)
+    model = word2vec.Word2Vec(sentences, size=100,alpha=0.01 , min_count=5, window=15,cbow_mean=1,iter=50)
     model.save(modelPath)
 
-def nearWord(modelPath,s_word):
+def nearWord(modelPath,search_word):
     model = word2vec.Word2Vec.load(modelPath)
-    results = model.wv.most_similar(s_word,topn=20)
-    print("検索語：",s_word)
+    results = model.wv.most_similar(search_word,topn=20)
+    print("検索語：",search_word)
     for result in results:
         print(result)
 
@@ -34,12 +34,16 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--input', '-i', type=str)
     parser.add_argument('--out', '-o' , type=str)
-    parser.add_argument('--search', '-s' , type=str)
-    parser.add_argument('--s_word', '-w' , type=str)
+    parser.add_argument('--select_model', '-s' , type=str)
+    parser.add_argument('--search_word', '-w' , type=str)
     args = parser.parse_args()
     
-    if args.search:
-        nearWord(args.search,args.s_word)
+    if args.select_model:
+        try:
+            print(args.search_word)
+            nearWord(args.select_model,args.search_word)
+        except KeyError:
+            print("そんな単語ないって！")
     else:
         makeModel(args.input,args.out)
         #nearWord(args.out)
