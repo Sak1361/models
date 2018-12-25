@@ -19,13 +19,13 @@ def makeModel(wakatiPath,modelPath):
         学習率：減らす
         これでもうまくいかない：エポック数増やす
     """
+    model = word2vec.Word2Vec(sentences, size=600,alpha=0.01 , min_count=5, window=15,cbow_mean=1,workers=4,iter=10)#,compute_loss=True)
     # size=次元数、min_count=単語の最小出現数、window=上記に説明、iter=学習繰り返し、cbow_mean=ベクトルの和(0)か平均か(1)
-    model = word2vec.Word2Vec(sentences, size=200,alpha=0.01 , min_count=5, window=15,cbow_mean=1,workers=4,iter=10,compute_loss=True)
     model.save(modelPath)
 
 def nearWord(modelPath,search_word):
     model = word2vec.Word2Vec.load(modelPath)
-    results = model.wv.most_similar(search_word,topn=20)
+    results = model.wv.most_similar(positive=[search_word,"賛成"],topn=20)
     print("検索語：",search_word)
     for result in results:
         print(result)
